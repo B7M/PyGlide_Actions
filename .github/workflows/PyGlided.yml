@@ -1,0 +1,73 @@
+name: Generate PyGlided Notebooks
+
+on:
+  push:
+    branches:
+      - main
+permissions: write-all
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: |
+          git config --global user.email "ibsnetwork001@gmail.com"
+          git config --global user.name "B7M"
+
+      - name: Install Packages
+        run: |
+          pip install --upgrade pip
+          pip install jupyter nbconvert pyglide
+
+      - name: Create output Folder
+        run: |
+          if [ ! -d "output" ]; then
+            mkdir output
+            echo "Output folder is created" > output/README.md
+          git add .
+          git commit -m "Add example.txt"
+          git push
+          fi
+          
+
+      - name: Run PyGlide
+        run: |
+          REPO_FULL_NAME=${GITHUB_REPOSITORY}
+          IFS='/' read -ra REPO <<< "$REPO_FULL_NAME"
+          REPO_NAME="${REPO[1]}"
+          if [ -n "$(find . -type f -name '*.ipynb')" ]; then
+            username="b7m"
+            ipynb_files=$(find . -type f -name '*.ipynb')
+            cat <<EOL > README.md
+          # $REPO_NAME
+
+          Welcome to PyGlide!
+          Where you can publish free educational content.
+          This repository contains notebooks that have been converted to HTML using PyGlide. You can view the notebooks by clicking on the links below.
+          GitHub Pages:
+          EOL
+            for file in $ipynb_files; do
+              filename_without_extension="${file%.ipynb}"
+              filename_without_extension="${filename_without_extension#./}"
+              echo "  - [${filename_without_extension}](https://$username.github.io/$REPO_NAME/output/"${filename_without_extension}_tmp_pyglide.html#"/)" >> README.md
+              pyglide "$filename_without_extension"
+            done
+            git add .
+            git commit -m "PyGlided notebooks"
+            git push
+          else
+            cat <<EOL > README.md
+          # $REPO_NAME
+            
+          Welcome to PyGlide!
+          Where you can publish free educational content.
+          You can start by pushing a new notebook or an existing one to this repo. Make sure you follow the instructions provided in [PyGlide](https://github.com/B7M/PyGlide) page to get the best results.
+          EOL
+            git add .
+            git commit -m "No new notebooks"
+            git push
+          fi
