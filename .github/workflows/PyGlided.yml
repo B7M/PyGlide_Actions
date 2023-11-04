@@ -27,7 +27,6 @@ jobs:
         run: |
           if [ ! -d "output" ]; then
             mkdir output
-            echo "Output folder is created" > output/README.md
           git add .
           git commit -m "Add example.txt"
           git push
@@ -42,7 +41,7 @@ jobs:
           if [ -n "$(find . -type f -name '*.ipynb')" ]; then
             username="b7m"
             ipynb_files=$(find . -type f -name '*.ipynb')
-            cat <<EOL > README.md
+            cat <<EOL > Course_link.md
           # $REPO_NAME
 
           Welcome to PyGlide!
@@ -53,14 +52,14 @@ jobs:
             for file in $ipynb_files; do
               filename_without_extension="${file%.ipynb}"
               filename_without_extension="${filename_without_extension#./}"
-              echo "  - [${filename_without_extension}](https://$username.github.io/$REPO_NAME/output/"${filename_without_extension}_tmp_pyglide.html#"/)" >> README.md
+              echo "  - [${filename_without_extension}](https://$username.github.io/$REPO_NAME/output/"${filename_without_extension}_tmp_pyglide.html#"/)" >> Course_link.md
               pyglide "$filename_without_extension"
             done
             git add .
             git commit -m "PyGlided notebooks"
             git push
           else
-            cat <<EOL > README.md
+            cat <<EOL > Course_link.md
           # $REPO_NAME
             
           Welcome to PyGlide!
