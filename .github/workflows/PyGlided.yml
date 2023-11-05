@@ -38,6 +38,7 @@ jobs:
           REPO_FULL_NAME=${GITHUB_REPOSITORY}
           IFS='/' read -ra REPO <<< "$REPO_FULL_NAME"
           REPO_NAME="${REPO[1]}"
+          echo "" > Course_link.md
           if [ -n "$(find . -type f -name '*.ipynb')" ]; then
             username="b7m"
             ipynb_files=$(find . -type f -name '*.ipynb')
