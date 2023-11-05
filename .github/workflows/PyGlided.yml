@@ -15,8 +15,8 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config --global user.email "ibsnetwork001@gmail.com"
-          git config --global user.name "B7M"
+          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config --global user.name "$GITHUB_ACTOR"
 
       - name: Install Packages
         run: |
