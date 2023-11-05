@@ -56,7 +56,7 @@ jobs:
               echo "  - [${filename_without_extension}](https://$username.github.io/$REPO_NAME/output/"${filename_without_extension}_tmp_pyglide.html#"/)" >> Course_link.md
               pyglide "$filename_without_extension"
             done
-            echo "## Modified on: " >> Course_link.md
+            echo "### Modified on: " >> Course_link.md
             echo $(date +"%Y-%m-%d, %H:%M:%S") >> Course_link.md
             git add .
             git commit -m "PyGlided notebooks"
@@ -70,7 +70,7 @@ jobs:
           You can start by pushing a new notebook or an existing one to this repo. Make sure you follow the instructions provided in [PyGlide](https://github.com/B7M/PyGlide) page to get the best results.
           
 
-          ## Modified on:
+          ### Modified on:
           $(date +"%Y-%m-%d, %H:%M:%S")
           EOL
             git add .
