@@ -57,7 +57,7 @@ jobs:
               pyglide "$filename_without_extension"
             done
             echo "### Modified on: " >> Course_link.md
-            echo $(date +"%Y-%m-%d, %H:%M:%S") >> Course_link.md
+            echo $(TZ=America/New_York date +"%Y-%m-%d, %H:%M:%S")", New York Time!" >> Course_link.md
             git add .
             git commit -m "PyGlided notebooks"
             git push
@@ -71,7 +71,7 @@ jobs:
           
 
           ### Modified on:
-          $(date +"%Y-%m-%d, %H:%M:%S")
+          $(TZ=America/New_York date +"%Y-%m-%d, %H:%M:%S"), New York Time!
           EOL
             git add .
             git commit -m "No new notebooks"
