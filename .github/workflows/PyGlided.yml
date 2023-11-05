@@ -56,7 +56,8 @@ jobs:
               echo "  - [${filename_without_extension}](https://$username.github.io/$REPO_NAME/output/"${filename_without_extension}_tmp_pyglide.html#"/)" >> Course_link.md
               pyglide "$filename_without_extension"
             done
-            echo "Modified on: $(date +"%Y-%m-%d, %H:%M:%S")" >> Course_link.md
+            echo "## Modified on: " >> Course_link.md
+            echo $(date +"%Y-%m-%d, %H:%M:%S") >> Course_link.md
             git add .
             git commit -m "PyGlided notebooks"
             git push
@@ -64,10 +65,12 @@ jobs:
             cat <<EOL > Course_link.md
           # $REPO_NAME
             
-          Welcome to PyGlide!\n
-          Where you can publish free educational content.\n
-          You can start by pushing a new notebook or an existing one to this repo. Make sure you follow the instructions provided in [PyGlide](https://github.com/B7M/PyGlide) page to get the best results.\n
-          Modified on:\n
+          Welcome to PyGlide!
+          Where you can publish free educational content.
+          You can start by pushing a new notebook or an existing one to this repo. Make sure you follow the instructions provided in [PyGlide](https://github.com/B7M/PyGlide) page to get the best results.
+          
+
+          ## Modified on:
           $(date +"%Y-%m-%d, %H:%M:%S")
           EOL
             git add .
